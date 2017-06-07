@@ -25,7 +25,11 @@ private EditText edtResult;
     }
     public void Load(){
 
-
+        /**
+         * Load faz acesso ao Servidor REST(.baseUrl("http://swapi.co/api/"))
+         * emquanto ele tenta acessar ele fica em branco ate receber os response(resposta)
+         * do servico,
+         */
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://swapi.co/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -36,6 +40,9 @@ private EditText edtResult;
             @Override
             public void onResponse(Call<StarWars> call, Response<StarWars> response) {
 
+                /**
+                 * aqui ele recebe a resposta se tudo estiver ok no site/servido rest
+                 */
                 StarWars json = response.body();
                 Log.i("Teste: ", json.toString());
                 edtResult.setText(json.getName().toString());
@@ -43,9 +50,10 @@ private EditText edtResult;
 
             @Override
             public void onFailure(Call<StarWars> call, Throwable t) {
+                /**
+                 * aqui acaso de algum erro sera logado no log sistem
+                 */
                 Log.i("Teste: ", t.getMessage());
-
-
             }
         });
 
